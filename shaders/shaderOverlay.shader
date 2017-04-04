@@ -27,12 +27,10 @@ varying vec4 v_vColour;
 
 uniform sampler2D texOverlay;
 
-void main()
+vec4 colorOverlay(vec4 inColor, vec4 blend)
 {
-    vec4 inColor = v_vColour * texture2D(gm_BaseTexture, v_vTexcoord);
-    vec4 outColor = vec4(0.0, 0.0, 0.0, inColor.a);
-    vec4 blend = texture2D(texOverlay, v_vTexcoord);
-      
+    vec4 outColor = vec4(0., 0., 0., inColor.a);
+
     if (inColor.r > 0.5)
     {
         outColor.r = (1.0 - (1.0 - 2.0 * (inColor.r - 0.5)) * (1.0 - blend.r));
@@ -59,5 +57,13 @@ void main()
     {   
         outColor.b = ((2.0 * inColor.b) * blend.b);
     }
-    gl_FragColor = mix(inColor, outColor, blend.a);
+
+    return mix(inColor, outColor, blend.a);
+}
+
+void main()
+{
+    vec4 inColor = v_vColour * texture2D(gm_BaseTexture, v_vTexcoord);
+    vec4 blend = texture2D(texOverlay, v_vTexcoord);
+    gl_FragColor = colorOverlay(inColor, blend);
 }
