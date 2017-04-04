@@ -1,5 +1,6 @@
-Photoshop-Shaders.gmx
-=====================
+![Cover Image](background/images/bac_test.png)
+
+# Photoshop-Shaders.gmx
 
 A Game Maker Studio project for testing Post-Processing shaders similar to those used in image editing programs like Photoshop or Gimp. 
 
